@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blankit: PII Redaction</title>
+    <link rel="icon" type="image/png" sizes="48x48" href="icons/icon48.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/icon16.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="icons/icon128.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ─── Nav ─── -->
+    <nav class="nav">
+        <div class="container nav-inner">
+            <a href="/" class="nav-logo">
+                <img src="icons/icon48.png" alt="Blankit" class="logo-icon"> Blankit
+            </a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="/docs">API Docs</a>
+                <a href="#contact">Contact</a>
+                <a href="/dashboard" class="btn btn-sm">Sign in</a>
+            </div>
+            <button class="nav-toggle" aria-label="Menu">☰</button>
+        </div>
+    </nav>
+
+    <!-- ─── Hero ─── -->
+    <header class="hero" id="hero">
+        <div class="container">
+            <h1>Strip sensitive data<br>before it reaches your LLMs</h1>
+            <p class="hero-sub">
+                Blankit's API automatically detects and redacts PII, PHI, and custom sensitive data
+                from text &amp; documents, so your team can use AI safely, at scale.
+            </p>
+            <div class="hero-actions">
+                <a href="/dashboard" class="btn btn-lg">Get Started</a>
+                <a href="/docs" class="btn btn-lg btn-outline">Read the Docs</a>
+            </div>
+            <div class="hero-proof">
+                <div class="proof-item"><strong>9+</strong> detection categories</div>
+                <div class="proof-divider"></div>
+                <div class="proof-item"><strong>15+</strong> file formats</div>
+                <div class="proof-divider"></div>
+                <div class="proof-item"><strong>&lt;200ms</strong> avg latency</div>
+                <div class="proof-divider"></div>
+                <div class="proof-item"><strong>Zero</strong> data retention</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ─── Logos / Social Proof ─── -->
+    <section class="logos-bar">
+        <div class="container">
+            <p class="logos-label">Trusted by teams building with</p>
+            <div class="logos-row">
+                <div class="logo-item">
+                    <!-- ChatGPT logo -->
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z" fill="#10a37f"/></svg>
+                    <span>ChatGPT</span>
+                </div>
+                <div class="logo-item">
+                    <!-- Claude logo -->
+                    <svg width="28" height="28" viewBox="0 0 172 148" fill="none"><g transform="translate(-75.96,-223.53)"><path d="m 105.01,322.07 29.14,-16.35 0.49,-1.42 -0.49,-0.79 h -1.42 l -4.87,-0.3 -16.65,-0.45 -14.44,-0.6 -13.99,-0.75 -3.52,-0.75 -3.3,-4.35 0.34,-2.17 2.96,-1.99 4.24,0.37 9.37,0.64 14.06,0.97 10.2,0.6 15.11,1.57 h 2.4 l 0.34,-0.97 -0.82,-0.6 -0.64,-0.6 -14.55,-9.86 -15.75,-10.42 -8.25,-6 -4.46,-3.04 -2.25,-2.85 -0.97,-6.22 4.05,-4.46 5.44,0.37 1.39,0.37 5.51,4.24 11.77,9.11 15.37,11.32 2.25,1.87 0.9,-0.64 0.11,-0.45 -1.01,-1.69 -8.36,-15.11 -8.92,-15.37 -3.97,-6.37 -1.05,-3.82 c -0.37,-1.57 -0.64,-2.89 -0.64,-4.5 l 4.61,-6.26 2.55,-0.82 6.15,0.82 2.59,2.25 3.82,8.74 6.19,13.76 9.6,18.71 2.81,5.55 1.5,5.14 0.56,1.57 h 0.97 v -0.9 l 0.79,-10.54 1.46,-12.94 1.42,-16.65 0.49,-4.69 2.32,-5.62 4.61,-3.04 3.6,1.72 2.96,4.24 -0.41,2.74 -1.76,11.44 -3.45,17.92 -2.25,12 h 1.31 l 1.5,-1.5 6.07,-8.06 10.2,-12.75 4.5,-5.06 5.25,-5.59 3.37,-2.66 h 6.37 l 4.69,6.97 -2.1,7.2 -6.56,8.32 -5.44,7.05 -7.8,10.5 -4.87,8.4 0.45,0.67 1.16,-0.11 17.62,-3.75 9.52,-1.72 11.36,-1.95 5.14,2.4 0.56,2.44 -2.02,4.99 -12.15,3 -14.25,2.85 -21.22,5.02 -0.26,0.19 0.3,0.37 9.56,0.9 4.09,0.22 h 10.01 l 18.64,1.39 4.87,3.22 2.92,3.94 -0.49,3 -7.5,3.82 -10.12,-2.4 -23.62,-5.62 -8.1,-2.02 h -1.12 v 0.67 l 6.75,6.6 12.37,11.17 15.49,14.4 0.79,3.56 -1.99,2.81 -2.1,-0.3 -13.61,-10.24 -5.25,-4.61 -11.89,-10.01 h -0.79 v 1.05 l 2.74,4.01 14.47,21.75 0.75,6.67 -1.05,2.17 -3.75,1.31 -4.12,-0.75 -8.47,-11.89 -8.74,-13.39 -7.05,-12 -0.86,0.49 -4.16,44.81 -1.95,2.29 -4.5,1.72 -3.75,-2.85 -1.99,-4.61 1.99,-9.11 2.4,-11.89 1.95,-9.45 1.76,-11.74 1.05,-3.9 -0.07,-0.26 -0.86,0.11 -8.85,12.15 -13.46,18.19 -10.65,11.4 -2.55,1.01 -4.42,-2.29 0.41,-4.09 2.47,-3.64 14.74,-18.75 8.89,-11.62 5.74,-6.71 -0.04,-0.97 h -0.34 l -39.15,25.42 -6.97,0.9 -3,-2.81 0.37,-4.61 1.42,-1.5 11.77,-8.1 -0.04,0.04 z" fill="#D97757"/></g></svg>
+                    <span>Claude</span>
+                </div>
+                <div class="logo-item">
+                    <!-- Gemini logo -->
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 24C12 20.2 13.2 17.2 15.2 15.2 17.2 13.2 20.2 12 24 12 20.2 12 17.2 10.8 15.2 8.8 13.2 6.8 12 3.8 12 0 12 3.8 10.8 6.8 8.8 8.8 6.8 10.8 3.8 12 0 12 3.8 12 6.8 13.2 8.8 15.2 10.8 17.2 12 20.2 12 24z" fill="url(#gemini-grad)"/><defs><linearGradient id="gemini-grad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse"><stop stop-color="#1a73e8"/><stop offset="0.5" stop-color="#6c47ff"/><stop offset="1" stop-color="#e94d9a"/></linearGradient></defs></svg>
+                    <span>Gemini</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Problem → Solution ─── -->
+    <section class="section" id="why">
+        <div class="container text-center">
+            <h2>Your employees paste sensitive data into AI every day</h2>
+            <p class="section-sub">
+                Names, SSNs, medical records, credit card numbers — they all end up in prompts.
+                Blankit sits between your users and the LLM, scrubbing PII in real-time so nothing
+                sensitive ever leaves your perimeter.
+            </p>
+        </div>
+
+        <!-- macOS-style dark editor demo -->
+        <div class="macos-editor">
+            <div class="macos-titlebar">
+                <span class="macos-dot red"></span>
+                <span class="macos-dot yellow"></span>
+                <span class="macos-dot green"></span>
+                <span class="macos-titlebar-text">customer_intake.txt — Blankit Preview</span>
+            </div>
+            <div class="macos-editor-body">
+                <div class="line">
+                    <span class="line-num">1</span>
+                    <span class="text-muted">// Patient intake form — submitted 03/18/2026</span>
+                </div>
+                <div class="line">
+                    <span class="line-num">2</span>
+                    <span>Name: &nbsp;</span>
+                    <span class="pii-original">Jonathan Reed</span>
+                    <span class="pii-replaced">[NAME_1]</span>
+                </div>
+                <div class="line">
+                    <span class="line-num">3</span>
+                    <span>Phone: &nbsp;</span>
+                    <span class="pii-original">(415) 555-0192</span>
+                    <span class="pii-replaced">[PHONE_1]</span>
+                </div>
+                <div class="line">
+                    <span class="line-num">4</span>
+                    <span>Email: &nbsp;</span>
+                    <span class="pii-original">j.reed@protonmail.com</span>
+                    <span class="pii-replaced">[EMAIL_1]</span>
+                </div>
+                <div class="line">
+                    <span class="line-num">5</span>
+                    <span>SSN: &nbsp;&nbsp;</span>
+                    <span class="pii-original">418-92-7314</span>
+                    <span class="pii-replaced">[SSN_1]</span>
+                </div>
+                <div class="line">
+                    <span class="line-num">6</span>
+                    <span>Addr: &nbsp;</span>
+                    <span class="pii-original">742 Evergreen Terrace, Springfield</span>
+                    <span class="pii-replaced">[ADDR_1]</span>
+                </div>
+                <div class="line">
+                    <span class="line-num">7</span>
+                    <span>DOB: &nbsp;&nbsp;</span>
+                    <span class="pii-original">04/12/1988</span>
+                    <span class="pii-replaced">[DOB_1]</span>
+                </div>
+                <div class="line">
+                    <span class="line-num">8</span>
+                    <span class="text-muted">// Diagnosis notes follow…</span>
+                </div>
+            </div>
+        </div>
+        <div class="editor-legend">
+            <div class="legend-item"><span class="legend-swatch red"></span> Original PII (redacted)</div>
+            <div class="legend-item"><span class="legend-swatch green"></span> Safe placeholder</div>
+        </div>
+    </section>
+
+    <!-- ─── Features ─── -->
+    <section class="section section-gray" id="features">
+        <div class="container text-center">
+            <h2>Everything you need for enterprise data protection</h2>
+            <p class="section-sub">One API call. Nine detection categories. Fifteen file formats. Zero data stored.</p>
+        </div>
+        <div class="container feat-grid mt-4">
+
+
+            <!-- 3 — Custom Dictionaries -->
+            <div class="feat-card">
+                <div class="feat-visual">
+                    <div class="feat-dict">
+                        <div class="feat-dict-row"><span class="feat-dict-key">+ Project Titan</span><span class="feat-dict-arrow">→</span><span class="feat-dict-val">[PROJ_1]</span></div>
+                        <div class="feat-dict-row"><span class="feat-dict-key">+ EMP-4829</span><span class="feat-dict-arrow">→</span><span class="feat-dict-val">[ID_1]</span></div>
+                        <div class="feat-dict-row"><span class="feat-dict-key">+ Dr. Patel</span><span class="feat-dict-arrow">→</span><span class="feat-dict-val">[NAME_1]</span></div>
+                    </div>
+                </div>
+                <div class="feat-text">
+                    <h3>Custom Dictionaries</h3>
+                    <p>Add your own terms — project codenames, internal IDs, employee names — and redact them across every request.</p>
+                </div>
+            </div>
+
+            <!-- 4 — Reversible Redaction -->
+            <div class="feat-card">
+                <div class="feat-visual">
+                    <div class="feat-reverse">
+                        <div class="feat-reverse-step">
+                            <span class="feat-reverse-label">Redact</span>
+                            <div class="feat-reverse-box out">John → <strong>[NAME_1]</strong></div>
+                        </div>
+                        <svg class="feat-reverse-arrows" width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M8 16h24M32 16l-6-5M32 16l-6 5" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 26H8M8 26l6-5M8 26l6 5" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <div class="feat-reverse-step">
+                            <span class="feat-reverse-label">Restore</span>
+                            <div class="feat-reverse-box in"><strong>[NAME_1]</strong> → John</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="feat-text">
+                    <h3>Reversible Redaction</h3>
+                    <p>Every redaction returns a map. Restore original values client-side — the AI never sees real data.</p>
+                </div>
+            </div>
+
+
+            
+            <!-- 5 — Compliance Reports -->
+            <div class="feat-card">
+                <div class="feat-visual">
+                    <div class="feat-compliance">
+                        <div class="feat-badge-row">
+                            <span class="feat-cbadge soc">SOC 2</span>
+                            <span class="feat-cbadge hipaa">HIPAA</span>
+                            <span class="feat-cbadge gdpr">GDPR</span>
+                        </div>
+                        <div class="feat-audit-lines">
+                            <div class="feat-audit-line"><span class="feat-audit-dot green"></span><span class="feat-audit-bar" style="width:85%"></span></div>
+                            <div class="feat-audit-line"><span class="feat-audit-dot green"></span><span class="feat-audit-bar" style="width:70%"></span></div>
+                            <div class="feat-audit-line"><span class="feat-audit-dot green"></span><span class="feat-audit-bar" style="width:92%"></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="feat-text">
+                    <h3>Compliance Reports</h3>
+                    <p>PDF audit reports showing what was caught, when, and where — ready for SOC 2, HIPAA, and GDPR.</p>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- Coverage table -->
+        <div class="container mt-4">
+            <table class="coverage-table">
+                <tbody>
+                    <tr>
+                        <td class="coverage-label">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            <span>9 PII / PHI types</span>
+                        </td>
+                        <td class="coverage-items">
+                            <span class="cov-tag">Email</span>
+                            <span class="cov-tag">Phone</span>
+                            <span class="cov-tag">SSN</span>
+                            <span class="cov-tag">Name</span>
+                            <span class="cov-tag">Address</span>
+                            <span class="cov-tag">DOB</span>
+                            <span class="cov-tag">Credit Card</span>
+                            <span class="cov-tag">MRN</span>
+                            <span class="cov-tag">IP Address</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="coverage-label">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                            <span>15+ file formats</span>
+                        </td>
+                        <td class="coverage-items">
+                            <span class="cov-doc"><svg width="16" height="16" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="4" fill="#2B579A"/><text x="7" y="23" font-family="Arial,sans-serif" font-weight="bold" font-size="16" fill="#fff">W</text></svg> DOCX</span>
+                            <span class="cov-doc"><svg width="16" height="16" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="4" fill="#217346"/><text x="5" y="23" font-family="Arial,sans-serif" font-weight="bold" font-size="16" fill="#fff">X</text></svg> XLSX</span>
+                            <span class="cov-doc"><svg width="16" height="16" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="4" fill="#D24726"/><text x="6" y="23" font-family="Arial,sans-serif" font-weight="bold" font-size="16" fill="#fff">P</text></svg> PPTX</span>
+                            <span class="cov-doc"><svg width="16" height="16" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="4" fill="#E2574C"/><text x="2" y="23" font-family="Arial,sans-serif" font-weight="bold" font-size="11" fill="#fff">PDF</text></svg> PDF</span>
+                            <span class="cov-doc"><svg width="16" height="16" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="4" fill="#6B7280"/><text x="4" y="22" font-family="Arial,sans-serif" font-weight="bold" font-size="11" fill="#fff">TXT</text></svg> TXT</span>
+                            <span class="cov-doc"><svg width="16" height="16" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="4" fill="#F59E0B"/><text x="3" y="22" font-family="Arial,sans-serif" font-weight="bold" font-size="11" fill="#fff">CSV</text></svg> CSV</span>
+                            <span class="cov-doc"><svg width="16" height="16" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="4" fill="#0D9488"/><text x="2" y="23" font-family="monospace" font-weight="bold" font-size="12" fill="#fff">{ }</text></svg> JSON</span>
+                            <span class="cov-doc"><svg width="16" height="16" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="4" fill="#EA580C"/><text x="1" y="22" font-family="monospace" font-weight="bold" font-size="10" fill="#fff">&lt;/&gt;</text></svg> XML</span>
+                            <span class="cov-doc"><svg width="16" height="16" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="4" fill="#1a1a2e"/><text x="4" y="22" font-family="Arial,sans-serif" font-weight="bold" font-size="10" fill="#fff">MD</text></svg> MD</span>
+                            <span class="cov-more">+6 more</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ─── How It Works ─── -->
+    <section class="section" id="how">
+        <div class="container text-center">
+            <h2>Integrate in 3 steps</h2>
+            <p class="section-sub">Get your API key, call the endpoint, ship with confidence.</p>
+        </div>
+
+        <div class="container how-steps mt-4">
+
+            <!-- Step 1 -->
+            <div class="how-step">
+                <div class="how-step-left">
+                    <div class="how-step-badge">1</div>
+                    <div class="how-step-line"></div>
+                </div>
+                <div class="how-step-content">
+                    <h3>Get your API key</h3>
+                    <p>Sign up and receive a production-ready key scoped to your organization. Sandbox keys are free for testing.</p>
+                    <div class="how-preview how-key-preview">
+                        <div class="how-key-row">
+                            <span class="how-key-label">Your API Key</span>
+                            <span class="how-key-env live">LIVE</span>
+                        </div>
+                        <div class="how-key-value">
+                            <code>Blankit_live_sk_7f3a...x9d2</code>
+                            <button class="how-key-copy" aria-label="Copy">Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="how-step">
+                <div class="how-step-left">
+                    <div class="how-step-badge">2</div>
+                    <div class="how-step-line"></div>
+                </div>
+                <div class="how-step-content">
+                    <h3>Call the API</h3>
+                    <p>Send a POST request with your text or upload a document. You get back clean output plus a full redaction map.</p>
+                    <div class="how-preview how-terminal">
+                        <div class="how-terminal-bar">
+                            <span class="how-terminal-dot red"></span>
+                            <span class="how-terminal-dot yellow"></span>
+                            <span class="how-terminal-dot green"></span>
+                            <span class="how-terminal-title">Terminal</span>
+                        </div>
+                        <div class="how-terminal-body">
+                            <div class="how-t-line"><span class="how-t-prompt">$</span> <span class="how-t-cmd">curl</span> -X POST https://api.Blankit.dev/v1/redact \</div>
+                            <div class="how-t-line">&nbsp;&nbsp;-H <span class="how-t-str">"Authorization: Bearer Blankit_live_sk_7f3a..."</span> \</div>
+                            <div class="how-t-line">&nbsp;&nbsp;-H <span class="how-t-str">"Content-Type: application/json"</span> \</div>
+                            <div class="how-t-line">&nbsp;&nbsp;-d <span class="how-t-str">'{"text": "John Smith, SSN 123-45-6789"}'</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="how-step how-step-last">
+                <div class="how-step-left">
+                    <div class="how-step-badge how-step-badge-green">3</div>
+                </div>
+                <div class="how-step-content">
+                    <h3>Ship with confidence</h3>
+                    <p>The API returns redacted text with safe placeholders, plus a map so you can restore originals client-side. The LLM never sees real data.</p>
+                    <div class="how-preview how-response">
+                        <div class="how-response-header">Response <span class="how-response-status">200 OK</span></div>
+                        <div class="how-response-body">
+                            <div class="how-r-line"><span class="how-r-key">"redacted_text"</span>: <span class="how-r-str">"<span class="how-r-placeholder">[NAME_1]</span>, SSN <span class="how-r-placeholder">[SSN_1]</span>"</span></div>
+                            <div class="how-r-line"><span class="how-r-key">"redaction_map"</span>: {</div>
+                            <div class="how-r-line">&nbsp;&nbsp;<span class="how-r-placeholder">"[NAME_1]"</span>: <span class="how-r-val">"John Smith"</span>,</div>
+                            <div class="how-r-line">&nbsp;&nbsp;<span class="how-r-placeholder">"[SSN_1]"</span> : <span class="how-r-val">"123-45-6789"</span></div>
+                            <div class="how-r-line">}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ─── Pricing ─── -->
+    <section class="section section-gray" id="pricing">
+        <div class="container text-center">
+            <h2>Simple, predictable pricing</h2>
+            <p class="section-sub">Pay only for what you use. No minimums, no lock-ins.</p>
+        </div>
+        <div class="container grid-3 mt-4">
+            <div class="price-card">
+                <div class="price-tier">Starter</div>
+                <div class="price-amount">Free</div>
+                <div class="price-unit">to get started</div>
+                <ul class="price-features">
+                    <li>1,000 text redactions / month</li>
+                    <li>50 document scrubs / month</li>
+                    <li>All 9 PII categories</li>
+                    <li>Community support</li>
+                    <li>Single API key</li>
+                </ul>
+                <a href="/dashboard" class="btn btn-outline btn-block">Start Free</a>
+            </div>
+            <div class="price-card price-card-featured">
+                <div class="price-popular">Most Popular</div>
+                <div class="price-tier">Pro</div>
+                <div class="price-amount">$9.99</div>
+                <div class="price-unit">per 100k tokens</div>
+                <ul class="price-features">
+                    <li>Unlimited redactions</li>
+                    <li>All document formats</li>
+                    <li>Custom dictionaries</li>
+                    <li>Redaction map & restore</li>
+                    <li>Email support</li>
+                    <li>Up to 5 API keys</li>
+                </ul>
+                <a href="/dashboard" class="btn btn-block">Get Started</a>
+            </div>
+            <div class="price-card">
+                <div class="price-tier">Enterprise</div>
+                <div class="price-amount">Custom</div>
+                <div class="price-unit">volume discounts available</div>
+                <ul class="price-features">
+                    <li>Everything in Pro</li>
+                    <li>Dedicated account manager</li>
+                    <li>SLA & uptime guarantee</li>
+                    <li>SOC 2 & HIPAA BAA</li>
+                    <li>SSO / SAML integration</li>
+                    <li>Unlimited API keys</li>
+                    <li>PDF compliance reports</li>
+                </ul>
+                <a href="#contact" class="btn btn-outline btn-block">Contact Sales</a>
+            </div>
+        </div>
+        <div style="display:flex;justify-content:center;padding:0 1rem;" class="mt-4">
+            <div class="ext-banner" style="padding:.85rem 1.5rem;border:1.5px solid #d0d5dd;border-radius:10px;background:#fff;display:inline-flex;align-items:center;gap:.6rem;white-space:nowrap;">
+                <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#22c55e;animation:pulse-dot 1.5s ease-in-out infinite;flex-shrink:0;"></span>
+                <p style="margin:0;font-size:.95rem;color:#555;white-space:inherit;">You can try our free, light-weight browser extension <a href="https://chromewebstore.google.com/detail/blankit/oihdkggpbopimdndhephiechoegagoeb" target="_blank" rel="noopener noreferrer" style="color:#2563eb;font-weight:500;text-decoration:none;">here</a>.</p>
+            </div>
+        </div>
+        <style>@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}@media(max-width:600px){.ext-banner{white-space:normal!important;text-align:center;max-width:320px;}}</style>
+    </section>
+
+    <!-- ─── Contact ─── -->
+    <section class="section" id="contact">
+        <div class="container text-center">
+            <h2>Get in touch</h2>
+            <p class="section-sub">Ready to protect your organization? Let's talk.</p>
+        </div>
+        <div class="container contact-wrap mt-4">
+            <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+                <input type="hidden" name="access_key" id="w3f-key" value="">
+                <input type="hidden" name="subject" value="Blankit Enterprise Inquiry">
+                <input type="hidden" name="redirect" value="">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Jane Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Work Email</label>
+                        <input type="email" id="email" name="email" required placeholder="jane@company.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="company">Company</label>
+                    <input type="text" id="company" name="company" placeholder="Acme Corp">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="4" required placeholder="Tell us about your use case and expected volume…"></textarea>
+                </div>
+
+                <!-- Web3Forms honeypot -->
+                <input type="checkbox" name="botcheck" class="hidden" style="display:none">
+
+                <button type="submit" class="btn btn-lg btn-block btn-static">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ─── Footer ─── -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <img src="icons/icon48.png" alt="Blankit" class="logo-icon"> Blankit
+            </div>
+            <div class="footer-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="/docs">API Docs</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p class="footer-copy">&copy; 2026 Blankit. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile nav toggle
+        document.querySelector('.nav-toggle').addEventListener('click', function () {
+            document.querySelector('.nav-links').classList.toggle('open');
+        });
+
+        // Load Web3Forms key from config API
+        fetch('/api/v1/config')
+            .then(function (r) { return r.json(); })
+            .then(function (cfg) {
+                var el = document.getElementById('w3f-key');
+                if (el && cfg.web3formsKey) el.value = cfg.web3formsKey;
+            });
+    </script>
+</body>
+</html>

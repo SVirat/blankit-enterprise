@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation: Blankit</title>
+    <link rel="icon" type="image/png" sizes="48x48" href="icons/icon48.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/icon16.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="icons/icon128.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="docs.css">
+</head>
+<body class="docs-body">
+    <!-- ─── Nav ─── -->
+    <nav class="nav">
+        <div class="container nav-inner">
+            <a href="/" class="nav-logo">
+                <img src="icons/icon48.png" alt="Blankit" class="logo-icon"> Blankit <span class="badge-enterprise">Docs</span>
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/#pricing">Pricing</a>
+                <a href="#getting-started">Quickstart</a>
+                <a href="#endpoints">Endpoints</a>
+                <a href="/dashboard" class="btn btn-sm">Dashboard</a>
+            </div>
+            <button class="nav-toggle" aria-label="Menu">☰</button>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <!-- ─── Sidebar ─── -->
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-heading">Getting Started</div>
+                <a href="#overview" class="sidebar-link">Overview</a>
+                <a href="#authentication" class="sidebar-link">Authentication</a>
+                <a href="#base-url" class="sidebar-link">Base URL</a>
+                <a href="#rate-limits" class="sidebar-link">Rate Limits</a>
+                <a href="#errors" class="sidebar-link">Error Handling</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-heading">Endpoints</div>
+                <a href="#redact-text" class="sidebar-link">POST /v1/redact</a>
+                <a href="#redact-doc" class="sidebar-link">POST /v1/redact-doc</a>
+                <a href="#unredact" class="sidebar-link">POST /v1/unredact</a>
+                <a href="#categories" class="sidebar-link">GET /v1/categories</a>
+                <a href="#usage" class="sidebar-link">GET /v1/usage</a>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-heading">Guides</div>
+                <a href="#quickstart-guide" class="sidebar-link">Quickstart Guide</a>
+                <a href="#custom-dictionaries" class="sidebar-link">Custom Dictionaries</a>
+                <a href="#llm-integration" class="sidebar-link">LLM Integration Pattern</a>
+                <a href="#webhooks" class="sidebar-link">Webhooks (Coming Soon)</a>
+            </div>
+        </aside>
+
+        <!-- ─── Main content ─── -->
+        <main class="docs-main">
+            <!-- Overview -->
+            <section id="overview" class="doc-section">
+                <h1>Blankit API Documentation</h1>
+                <p class="doc-lead">
+                    The Blankit API provides enterprise-grade PII and PHI detection and redaction as a simple
+                    REST service. Send text or upload documents — receive clean, redacted output plus a
+                    reversible redaction map.
+                </p>
+                <div class="callout callout-info">
+                    <strong>Zero data retention.</strong> Blankit processes all data in memory. Nothing is logged,
+                    stored, or cached on our servers after the response is returned.
+                </div>
+            </section>
+
+            <!-- Authentication -->
+            <section id="authentication" class="doc-section">
+                <h2>Authentication</h2>
+                <p>All API requests require a Bearer token in the <code>Authorization</code> header:</p>
+                <div class="code-container">
+                    <div class="code-header"><span>HTTP Header</span><button class="copy-btn" data-target="auth-code">Copy</button></div>
+                    <pre class="code-block" id="auth-code"><code>Authorization: Bearer Blankit_live_abc123def456</code></pre>
+                </div>
+                <p>API keys are prefixed with <code>Blankit_live_</code> for production and <code>Blankit_test_</code> for sandbox. Keep your keys secret — do not expose them in client-side code.</p>
+                <table class="doc-table">
+                    <thead><tr><th>Key prefix</th><th>Environment</th><th>Billing</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>Blankit_test_</code></td><td>Sandbox</td><td>Free (limited to 100 req/day)</td></tr>
+                        <tr><td><code>Blankit_live_</code></td><td>Production</td><td>Per your plan</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Base URL -->
+            <section id="base-url" class="doc-section">
+                <h2>Base URL</h2>
+                <div class="code-container">
+                    <pre class="code-block"><code>https://api.Blankit.dev/v1</code></pre>
+                </div>
+                <p>All endpoints are versioned. The current version is <strong>v1</strong>. We will never introduce breaking changes without incrementing the version.</p>
+            </section>
+
+            <!-- Rate Limits -->
+            <section id="rate-limits" class="doc-section">
+                <h2>Rate Limits</h2>
+                <table class="doc-table">
+                    <thead><tr><th>Plan</th><th>Text Redactions</th><th>Document Scrubs</th><th>Requests / min</th></tr></thead>
+                    <tbody>
+                        <tr><td>Starter (Free)</td><td>1,000 / mo</td><td>50 / mo</td><td>20</td></tr>
+                        <tr><td>Pro</td><td>Unlimited</td><td>Unlimited</td><td>200</td></tr>
+                        <tr><td>Enterprise</td><td>Unlimited</td><td>Unlimited</td><td>Custom</td></tr>
+                    </tbody>
+                </table>
+                <p>Rate-limited responses return <code>429 Too Many Requests</code> with a <code>Retry-After</code> header (in seconds).</p>
+            </section>
+
+            <!-- Errors -->
+            <section id="errors" class="doc-section">
+                <h2>Error Handling</h2>
+                <p>The API uses standard HTTP status codes. All error responses have a consistent JSON shape:</p>
+                <div class="code-container">
+                    <div class="code-header"><span>Error Response</span></div>
+                    <pre class="code-block"><code>{
+  "error": {
+    "code": "invalid_api_key",
+    "message": "The provided API key is invalid or expired.",
+    "status": 401
+  }
+}</code></pre>
+                </div>
+                <table class="doc-table">
+                    <thead><tr><th>Status</th><th>Code</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td>400</td><td><code>bad_request</code></td><td>Missing or malformed request body</td></tr>
+                        <tr><td>401</td><td><code>invalid_api_key</code></td><td>Missing, invalid, or expired API key</td></tr>
+                        <tr><td>413</td><td><code>payload_too_large</code></td><td>Text exceeds 500KB or document exceeds 50MB</td></tr>
+                        <tr><td>422</td><td><code>unsupported_format</code></td><td>Uploaded file type is not supported</td></tr>
+                        <tr><td>429</td><td><code>rate_limited</code></td><td>Too many requests — slow down</td></tr>
+                        <tr><td>500</td><td><code>internal_error</code></td><td>Unexpected server error — contact support</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- ─── ENDPOINTS ─── -->
+            <div id="endpoints"></div>
+
+            <!-- POST /v1/redact -->
+            <section id="redact-text" class="doc-section">
+                <div class="endpoint-badge post">POST</div>
+                <h2>/v1/redact</h2>
+                <p>Redact PII from a plain text string. Returns the redacted text and a map of all detected items.</p>
+
+                <h3>Request Body</h3>
+                <table class="doc-table">
+                    <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>text</code></td><td>string</td><td>Yes</td><td>The input text to redact (max 500KB).</td></tr>
+                        <tr><td><code>categories</code></td><td>object</td><td>No</td><td>Override default detection categories. Each key is a category name (<code>emails</code>, <code>phones</code>, <code>ssn</code>, <code>creditCards</code>, <code>addresses</code>, <code>names</code>, <code>dates</code>, <code>medical</code>, <code>ip</code>) mapped to <code>true</code>/<code>false</code>.</td></tr>
+                        <tr><td><code>custom_words</code></td><td>string[]</td><td>No</td><td>Additional organization-specific words to redact.</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Example Request</h3>
+                <div class="code-container">
+                    <div class="code-header"><span>cURL</span><button class="copy-btn" data-target="redact-curl">Copy</button></div>
+                    <pre class="code-block" id="redact-curl"><code>curl -X POST https://api.Blankit.dev/v1/redact \
+  -H "Authorization: Bearer Blankit_live_abc123" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Please update the file for John Smith. His SSN is 123-45-6789 and email is john@example.com.",
+    "categories": {
+      "emails": true,
+      "ssn": true,
+      "names": true
+    }
+  }'</code></pre>
+                </div>
+
+                <h3>Example Response</h3>
+                <div class="code-container">
+                    <div class="code-header"><span>200 OK</span></div>
+                    <pre class="code-block"><code>{
+  "redacted_text": "Please update the file for [NAME_1]. His SSN is [SSN_2] and email is [EMAIL_3].",
+  "items": [
+    { "type": "Person Name", "placeholder": "[NAME_1]", "index": 0 },
+    { "type": "SSN", "placeholder": "[SSN_2]", "index": 1 },
+    { "type": "Email", "placeholder": "[EMAIL_3]", "index": 2 }
+  ],
+  "redaction_map": {
+    "[NAME_1]": "John Smith",
+    "[SSN_2]": "123-45-6789",
+    "[EMAIL_3]": "john@example.com"
+  },
+  "stats": {
+    "total_redactions": 3,
+    "categories_matched": ["Person Name", "SSN", "Email"],
+    "input_tokens": 19,
+    "processing_ms": 12
+  }
+}</code></pre>
+                </div>
+                <div class="callout callout-warning">
+                    <strong>Security note:</strong> The <code>redaction_map</code> contains the original sensitive data.
+                    Store it securely on your server or client — never forward it to an LLM.
+                </div>
+            </section>
+
+            <!-- POST /v1/redact-doc -->
+            <section id="redact-doc" class="doc-section">
+                <div class="endpoint-badge post">POST</div>
+                <h2>/v1/redact-doc</h2>
+                <p>Upload a document for redaction. Supported formats: DOCX, XLSX, PPTX, PDF, TXT, CSV, JSON, XML, MD, HTML, YAML, LOG, INI, RTF.</p>
+
+                <h3>Request</h3>
+                <p>Send as <code>multipart/form-data</code>.</p>
+                <table class="doc-table">
+                    <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>file</code></td><td>file</td><td>Yes</td><td>The document to redact (max 50MB).</td></tr>
+                        <tr><td><code>categories</code></td><td>JSON string</td><td>No</td><td>Category overrides (same shape as text endpoint).</td></tr>
+                        <tr><td><code>custom_words</code></td><td>JSON string</td><td>No</td><td>JSON array of custom words to redact.</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Example Request</h3>
+                <div class="code-container">
+                    <div class="code-header"><span>cURL</span><button class="copy-btn" data-target="doc-curl">Copy</button></div>
+                    <pre class="code-block" id="doc-curl"><code>curl -X POST https://api.Blankit.dev/v1/redact-doc \
+  -H "Authorization: Bearer Blankit_live_abc123" \
+  -F "file=@report.docx" \
+  -F 'categories={"emails":true,"ssn":true,"names":true}'</code></pre>
+                </div>
+
+                <h3>Example Response</h3>
+                <div class="code-container">
+                    <div class="code-header"><span>200 OK</span></div>
+                    <pre class="code-block"><code>{
+  "file_name": "report.docx",
+  "file_type": "ooxml",
+  "file_size_bytes": 24832,
+  "redacted_file_base64": "UEsDBBQAAAAI...(base64-encoded redacted document)...",
+  "items": [
+    { "type": "Person Name", "placeholder": "[NAME_1]" },
+    { "type": "Email", "placeholder": "[EMAIL_2]" },
+    { "type": "SSN", "placeholder": "[SSN_3]" }
+  ],
+  "redaction_map": {
+    "[NAME_1]": "Jane Doe",
+    "[EMAIL_2]": "jane@acme.com",
+    "[SSN_3]": "987-65-4321"
+  },
+  "stats": {
+    "total_redactions": 3,
+    "processing_ms": 187
+  }
+}</code></pre>
+                </div>
+
+                <h3>Supported File Formats</h3>
+                <table class="doc-table">
+                    <thead><tr><th>Category</th><th>Extensions</th><th>Max Size</th><th>Notes</th></tr></thead>
+                    <tbody>
+                        <tr><td>OOXML (Office)</td><td>.docx, .xlsx, .pptx</td><td>50 MB</td><td>Formatting preserved — redacted in-place within XML</td></tr>
+                        <tr><td>PDF</td><td>.pdf</td><td>50 MB</td><td>Text streams extracted and redacted; output is text-layer PDF</td></tr>
+                        <tr><td>Plain Text</td><td>.txt, .csv, .tsv, .json, .xml, .md, .html, .yaml, .log, .ini, .rtf</td><td>10 MB</td><td>Direct string redaction</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- POST /v1/unredact -->
+            <section id="unredact" class="doc-section">
+                <div class="endpoint-badge post">POST</div>
+                <h2>/v1/unredact</h2>
+                <p>Restore original values in an LLM response using a previously returned redaction map. Call this on your backend — never expose original PII to the LLM.</p>
+
+                <h3>Request Body</h3>
+                <table class="doc-table">
+                    <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>text</code></td><td>string</td><td>Yes</td><td>The LLM response containing placeholders like <code>[NAME_1]</code>.</td></tr>
+                        <tr><td><code>redaction_map</code></td><td>object</td><td>Yes</td><td>The map returned by the original <code>/v1/redact</code> or <code>/v1/redact-doc</code> call.</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Example</h3>
+                <div class="code-container">
+                    <div class="code-header"><span>cURL</span><button class="copy-btn" data-target="unredact-curl">Copy</button></div>
+                    <pre class="code-block" id="unredact-curl"><code>curl -X POST https://api.Blankit.dev/v1/unredact \
+  -H "Authorization: Bearer Blankit_live_abc123" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Based on the records for [NAME_1], I recommend...",
+    "redaction_map": {
+      "[NAME_1]": "John Smith"
+    }
+  }'</code></pre>
+                </div>
+
+                <h3>Response</h3>
+                <div class="code-container">
+                    <pre class="code-block"><code>{
+  "restored_text": "Based on the records for John Smith, I recommend...",
+  "replacements_made": 1
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- GET /v1/categories -->
+            <section id="categories" class="doc-section">
+                <div class="endpoint-badge get">GET</div>
+                <h2>/v1/categories</h2>
+                <p>List all available detection categories and their default state.</p>
+
+                <div class="code-container">
+                    <div class="code-header"><span>200 OK</span></div>
+                    <pre class="code-block"><code>{
+  "categories": [
+    { "key": "emails",      "label": "EMAIL", "type": "Email",                 "default": true },
+    { "key": "phones",      "label": "PHONE", "type": "Phone Number",          "default": true },
+    { "key": "ssn",         "label": "SSN",   "type": "SSN",                   "default": true },
+    { "key": "creditCards", "label": "CC",    "type": "Credit Card",           "default": true },
+    { "key": "addresses",   "label": "ADDR",  "type": "Street Address",        "default": true },
+    { "key": "names",       "label": "NAME",  "type": "Person Name",           "default": true },
+    { "key": "dates",       "label": "DOB",   "type": "Date",                  "default": true },
+    { "key": "medical",     "label": "MRN",   "type": "Medical Record Number", "default": true },
+    { "key": "ip",          "label": "IP",    "type": "IP Address",            "default": true }
+  ]
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- GET /v1/usage -->
+            <section id="usage" class="doc-section">
+                <div class="endpoint-badge get">GET</div>
+                <h2>/v1/usage</h2>
+                <p>Retrieve your current billing cycle's usage statistics.</p>
+
+                <div class="code-container">
+                    <pre class="code-block"><code>{
+  "plan": "pro",
+  "billing_period": { "start": "2026-03-01", "end": "2026-03-31" },
+  "text_redactions": { "used": 12480, "limit": null },
+  "document_scrubs": { "used": 342, "limit": null },
+  "tokens_processed": 1847200,
+  "cost_usd": {
+    "text": 73.89,
+    "documents": 34.20,
+    "total": 108.09
+  }
+}</code></pre>
+                </div>
+            </section>
+
+            <!-- ─── GUIDES ─── -->
+
+            <!-- Quickstart -->
+            <section id="quickstart-guide" class="doc-section">
+                <h2>Quickstart Guide</h2>
+                <p>Get up and running in under 5 minutes.</p>
+
+                <h3>1. Get your API key</h3>
+                <p><a href="/#contact" class="inline-link">Contact us</a> to receive your API key. You'll get both a sandbox key (<code>Blankit_test_</code>) and a production key (<code>Blankit_live_</code>).</p>
+
+                <h3>2. Install the SDK (optional)</h3>
+                <div class="code-container">
+                    <div class="code-header"><span>npm</span></div>
+                    <pre class="code-block"><code>npm install @Blankit/sdk</code></pre>
+                </div>
+                <p>Or call the REST API directly from any language.</p>
+
+                <h3>3. Redact before sending to your LLM</h3>
+                <div class="code-container">
+                    <div class="code-header"><span>Node.js</span><button class="copy-btn" data-target="quickstart-node">Copy</button></div>
+                    <pre class="code-block" id="quickstart-node"><code>const Blankit_KEY = process.env.Blankit_API_KEY;
+
+// Step 1: Redact PII from user prompt
+const redactRes = await fetch('https://api.Blankit.dev/v1/redact', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${Blankit_KEY}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    text: userPrompt,
+    custom_words: ['ProjectNova', 'AcmeCorp']
+  })
+});
+
+const { redacted_text, redaction_map } = await redactRes.json();
+
+// Step 2: Send CLEAN text to OpenAI (no PII)
+const llmRes = await openai.chat.completions.create({
+  model: 'gpt-4',
+  messages: [{ role: 'user', content: redacted_text }]
+});
+
+const llmOutput = llmRes.choices[0].message.content;
+
+// Step 3: Restore original values for the user
+const restoreRes = await fetch('https://api.Blankit.dev/v1/unredact', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${Blankit_KEY}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    text: llmOutput,
+    redaction_map
+  })
+});
+
+const { restored_text } = await restoreRes.json();
+// Show restored_text to the user — LLM never saw real PII ✓</code></pre>
+                </div>
+
+                <h3>4. Python example</h3>
+                <div class="code-container">
+                    <div class="code-header"><span>Python</span><button class="copy-btn" data-target="quickstart-python">Copy</button></div>
+                    <pre class="code-block" id="quickstart-python"><code>import requests, os
+
+API_KEY = os.environ["Blankit_API_KEY"]
+BASE    = "https://api.Blankit.dev/v1"
+HEADERS = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
+
+# Redact
+resp = requests.post(f"{BASE}/redact", headers=HEADERS, json={
+    "text": "Contact Jane Doe at jane@acme.com or 555-123-4567"
+})
+data = resp.json()
+
+print(data["redacted_text"])
+# "Contact [NAME_1] at [EMAIL_2] or [PHONE_3]"
+
+print(data["redaction_map"])
+# {"[NAME_1]": "Jane Doe", "[EMAIL_2]": "jane@acme.com", "[PHONE_3]": "555-123-4567"}</code></pre>
+                </div>
+            </section>
+
+            <!-- Custom Dictionaries -->
+            <section id="custom-dictionaries" class="doc-section">
+                <h2>Custom Dictionaries</h2>
+                <p>Beyond the 9 built-in categories, you can supply a <code>custom_words</code> array with every request. These words will be redacted with <code>[CUSTOM_N]</code> placeholders.</p>
+
+                <div class="code-container">
+                    <pre class="code-block"><code>{
+  "text": "The ProjectNova launch is scheduled for Q3. Contact the Titan team.",
+  "custom_words": ["ProjectNova", "Titan"]
+}</code></pre>
+                </div>
+                <p>Response:</p>
+                <div class="code-container">
+                    <pre class="code-block"><code>{
+  "redacted_text": "The [CUSTOM_1] launch is scheduled for Q3. Contact the [CUSTOM_2] team.",
+  "redaction_map": {
+    "[CUSTOM_1]": "ProjectNova",
+    "[CUSTOM_2]": "Titan"
+  }
+}</code></pre>
+                </div>
+                <div class="callout callout-info">
+                    <strong>Tip:</strong> For large dictionaries (100+ terms), consider maintaining them server-side and sending them via the <code>custom_words</code> parameter. Contact us about persistent org-level dictionaries on Enterprise plans.
+                </div>
+            </section>
+
+            <!-- LLM Integration Pattern -->
+            <section id="llm-integration" class="doc-section">
+                <h2>LLM Integration Pattern</h2>
+                <p>The recommended integration architecture for protecting user data when using any LLM:</p>
+                <div class="flow-diagram">
+                    <div class="flow-step">
+                        <div class="flow-label">User Input</div>
+                        <div class="flow-desc">"Update John Smith's record, SSN 123-45-6789"</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step flow-step-highlight">
+                        <div class="flow-label">Blankit API</div>
+                        <div class="flow-desc">POST /v1/redact → receives clean text + map</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="flow-label">LLM (GPT-4, Claude, etc.)</div>
+                        <div class="flow-desc">"Update [NAME_1]'s record, SSN [SSN_2]"</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step flow-step-highlight">
+                        <div class="flow-label">Blankit API</div>
+                        <div class="flow-desc">POST /v1/unredact → restores original values</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="flow-label">User sees response</div>
+                        <div class="flow-desc">With real names, SSNs, etc. restored</div>
+                    </div>
+                </div>
+                <div class="callout callout-warning">
+                    <strong>Important:</strong> Never forward the <code>redaction_map</code> to the LLM. Store it temporarily on your backend and use it only for the unredact step.
+                </div>
+            </section>
+
+            <!-- Webhooks -->
+            <section id="webhooks" class="doc-section">
+                <h2>Webhooks <span class="coming-soon">Coming Soon</span></h2>
+                <p>We're building webhook support for async document processing and usage alerts. Want early access? <a href="/#contact" class="inline-link">Get in touch</a>.</p>
+                <ul class="doc-list">
+                    <li><code>document.redacted</code> — Fires when an async document job completes</li>
+                    <li><code>usage.threshold</code> — Alert when you reach 80% / 100% of your plan limits</li>
+                    <li><code>key.rotated</code> — Confirmation when an API key is rotated</li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ─── Footer ─── -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <img src="icons/icon48.png" alt="Blankit" class="logo-icon"> Blankit
+            </div>
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/#features">Features</a>
+                <a href="/#pricing">Pricing</a>
+                <a href="/#contact">Contact</a>
+            </div>
+            <p class="footer-copy">&copy; 2026 Blankit. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Copy-to-clipboard
+        document.querySelectorAll('.copy-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var target = document.getElementById(btn.dataset.target);
+                if (!target) return;
+                navigator.clipboard.writeText(target.textContent.trim()).then(function () {
+                    btn.textContent = 'Copied!';
+                    setTimeout(function () { btn.textContent = 'Copy'; }, 1500);
+                });
+            });
+        });
+        // Active sidebar link highlighting
+        var sidebarLinks = document.querySelectorAll('.sidebar-link');
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    sidebarLinks.forEach(function (l) { l.classList.remove('active'); });
+                    var link = document.querySelector('.sidebar-link[href="#' + entry.target.id + '"]');
+                    if (link) link.classList.add('active');
+                }
+            });
+        }, { rootMargin: '-80px 0px -60% 0px' });
+        document.querySelectorAll('.doc-section').forEach(function (s) { observer.observe(s); });
+        // Mobile nav
+        document.querySelector('.nav-toggle').addEventListener('click', function () {
+            document.querySelector('.nav-links').classList.toggle('open');
+        });
+    </script>
+</body>
+</html>
