@@ -13,6 +13,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Glassmorphism background orbs -->
+    <div class="glass-bg-orbs" aria-hidden="true">
+        <div class="glass-orb glass-orb-1"></div>
+        <div class="glass-orb glass-orb-2"></div>
+        <div class="glass-orb glass-orb-3"></div>
+        <div class="glass-orb glass-orb-4"></div>
+    </div>
+
     <!-- ─── Nav ─── -->
     <nav class="nav">
         <div class="container nav-inner">
@@ -35,11 +43,11 @@
         <div class="container">
             <h1>Strip sensitive data<br>before it reaches your LLMs</h1>
             <p class="hero-sub">
-                Blankit's API automatically detects and redacts PII, PHI, and custom sensitive data
-                from text &amp; documents, so your team can use AI safely, at scale.
+                Blankit's API automatically detects and redacts PII and custom sensitive data
+                from text &amp; documents, so your team can use AI safely.
             </p>
             <div class="hero-actions">
-                <a href="/dashboard" class="btn btn-lg">Get Started</a>
+                <a href="/dashboard" class="btn btn-lg btn-glow-border"><span class="btn-glow-inner">Get Started</span></a>
                 <a href="/docs" class="btn btn-lg btn-outline">Read the Docs</a>
             </div>
             <div class="hero-proof">
@@ -47,9 +55,9 @@
                 <div class="proof-divider"></div>
                 <div class="proof-item"><strong>15+</strong> file formats</div>
                 <div class="proof-divider"></div>
-                <div class="proof-item"><strong>&lt;200ms</strong> avg latency</div>
+                <div class="proof-item"><strong>&lt;100ms</strong> p95 latency</div>
                 <div class="proof-divider"></div>
-                <div class="proof-item"><strong>Zero</strong> data retention</div>
+                <div class="proof-item"><strong>0</strong> data retention</div>
             </div>
         </div>
     </header>
@@ -89,64 +97,36 @@
             </p>
         </div>
 
-        <!-- macOS-style dark editor demo -->
-        <div class="macos-editor">
-            <div class="macos-titlebar">
-                <span class="macos-dot red"></span>
-                <span class="macos-dot yellow"></span>
-                <span class="macos-dot green"></span>
-                <span class="macos-titlebar-text">customer_intake.txt — Blankit Preview</span>
-            </div>
-            <div class="macos-editor-body">
-                <div class="line">
-                    <span class="line-num">1</span>
-                    <span class="text-muted">// Patient intake form — submitted 03/18/2026</span>
+        <!-- Live Tokenizer Demo -->
+        <div class="tokenizer-demo">
+            <div class="tokenizer-header">
+                <div class="tokenizer-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Live Preview
                 </div>
-                <div class="line">
-                    <span class="line-num">2</span>
-                    <span>Name: &nbsp;</span>
-                    <span class="pii-original">Jonathan Reed</span>
-                    <span class="pii-replaced">[NAME_1]</span>
-                </div>
-                <div class="line">
-                    <span class="line-num">3</span>
-                    <span>Phone: &nbsp;</span>
-                    <span class="pii-original">(415) 555-0192</span>
-                    <span class="pii-replaced">[PHONE_1]</span>
-                </div>
-                <div class="line">
-                    <span class="line-num">4</span>
-                    <span>Email: &nbsp;</span>
-                    <span class="pii-original">j.reed@protonmail.com</span>
-                    <span class="pii-replaced">[EMAIL_1]</span>
-                </div>
-                <div class="line">
-                    <span class="line-num">5</span>
-                    <span>SSN: &nbsp;&nbsp;</span>
-                    <span class="pii-original">418-92-7314</span>
-                    <span class="pii-replaced">[SSN_1]</span>
-                </div>
-                <div class="line">
-                    <span class="line-num">6</span>
-                    <span>Addr: &nbsp;</span>
-                    <span class="pii-original">742 Evergreen Terrace, Springfield</span>
-                    <span class="pii-replaced">[ADDR_1]</span>
-                </div>
-                <div class="line">
-                    <span class="line-num">7</span>
-                    <span>DOB: &nbsp;&nbsp;</span>
-                    <span class="pii-original">04/12/1988</span>
-                    <span class="pii-replaced">[DOB_1]</span>
-                </div>
-                <div class="line">
-                    <span class="line-num">8</span>
-                    <span class="text-muted">// Diagnosis notes follow…</span>
+                <div class="tokenizer-presets">
+                    <button class="preset-btn active" data-preset="phone">PHONE</button>
+                    <button class="preset-btn" data-preset="cc">CREDIT CARD</button>
+                    <button class="preset-btn" data-preset="medical">MEDICAL</button>
+                    <button class="preset-btn" data-preset="contact">EMAIL + PHONE</button>
                 </div>
             </div>
-        </div>
-        <div class="editor-legend">
-            <div class="legend-item"><span class="legend-swatch red"></span> Original PII (redacted)</div>
-            <div class="legend-item"><span class="legend-swatch green"></span> Safe placeholder</div>
+            <div class="tokenizer-body">
+                <div class="tokenizer-pane">
+                    <div class="tokenizer-pane-label">Raw Input: What Your LLM Sees Today</div>
+                    <textarea id="tokenizer-input" class="tokenizer-textarea" spellcheck="false" readonly>My phone number is 123-456-7890 and I need a refund.</textarea>
+                </div>
+                <div class="tokenizer-pane">
+                    <div class="tokenizer-pane-label">Redacted Output: What Your LLM Will See</div>
+                    <div id="tokenizer-output" class="tokenizer-output">Click "Redact" to see the magic ✨</div>
+                </div>
+            </div>
+            <div class="tokenizer-footer">
+                <button id="tokenizer-btn" class="tokenizer-run-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Redact
+                </button>
+            </div>
         </div>
     </section>
 
@@ -380,7 +360,7 @@
                     <li>Email support</li>
                     <li>Up to 5 API keys</li>
                 </ul>
-                <a href="/dashboard" class="btn btn-block">Get Started</a>
+                <a href="/dashboard" class="btn btn-block btn-glow-border"><span class="btn-glow-inner">Get Started</span></a>
             </div>
             <div class="price-card">
                 <div class="price-tier">Enterprise</div>
@@ -475,6 +455,94 @@
                 var el = document.getElementById('w3f-key');
                 if (el && cfg.web3formsKey) el.value = cfg.web3formsKey;
             });
+    </script>
+
+    <!-- Live Tokenizer Logic -->
+    <script>
+    (function() {
+        var presets = {
+            phone:     'My phone number is 123-456-7890 and I need a refund.',
+            cc:      'Charge card 4111-1111-1111-1111 for the order placed by Sachi.',
+            medical: 'Patient MRN: 00482917, diagnosed on 03/15/2026 by Dr. Akhil Kumar.',
+            contact: 'Reach me at john.doe@acme.com or (415) 555-0192 for details.'
+        };
+
+        var PATTERNS = [
+            { label: 'EMAIL', regex: /\b[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}\b/g },
+            { label: 'PHONE', regex: /(?:\+?1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/g },
+            { label: 'SSN',   regex: /\b\d{3}[-\s]?\d{2}[-\s]?\d{4}\b/g },
+            { label: 'CC',    regex: /\b(?:\d{4}[-\s]?){3}\d{4}\b/g },
+            { label: 'DOB',   regex: /\b(?:0?[1-9]|1[0-2])[\/\-](?:0?[1-9]|[12]\d|3[01])[\/\-](?:19|20)\d{2}\b/g },
+            { label: 'MRN',   regex: /\b(?:MRN|MR#|Medical Record)[:\s#]*\d{4,10}\b/gi },
+            { label: 'IP',    regex: /\b(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\b/g },
+            { label: 'NAME',  regex: /\b(?:Dr\.\s+)?(?:Sachi|Dr. Akhil Kumar|Sarah|John|James|Robert|Michael|David|William|Richard|Joseph|Thomas|Mary|Patricia|Jennifer|Linda|Elizabeth|Susan|Jessica|Karen|Patel|Smith|Reed|Doe)(?:\s+(?:Sarah|John|James|Robert|Michael|David|William|Richard|Joseph|Thomas|Mary|Patricia|Jennifer|Linda|Elizabeth|Susan|Jessica|Karen|Patel|Smith|Reed|Doe))?\b/g }
+        ];
+
+        function redactText(text) {
+            var counters = {};
+            var matches = [];
+            PATTERNS.forEach(function(p) {
+                var re = new RegExp(p.regex.source, p.regex.flags);
+                var m;
+                while ((m = re.exec(text)) !== null) {
+                    matches.push({ start: m.index, end: m.index + m[0].length, label: p.label, original: m[0] });
+                }
+            });
+            // Sort by position, remove overlaps
+            matches.sort(function(a, b) { return a.start - b.start; });
+            var filtered = [];
+            var lastEnd = 0;
+            matches.forEach(function(m) {
+                if (m.start >= lastEnd) { filtered.push(m); lastEnd = m.end; }
+            });
+            // Build output
+            var parts = [];
+            var pos = 0;
+            filtered.forEach(function(m) {
+                if (m.start > pos) parts.push(escapeHtml(text.slice(pos, m.start)));
+                counters[m.label] = (counters[m.label] || 0) + 1;
+                parts.push('<span class="tok-placeholder">[' + m.label + '_' + counters[m.label] + ']</span>');
+                pos = m.end;
+            });
+            if (pos < text.length) parts.push(escapeHtml(text.slice(pos)));
+            return { html: parts.join(''), count: filtered.length };
+        }
+
+        function escapeHtml(s) {
+            return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+
+        // Preset buttons
+        var presetBtns = document.querySelectorAll('.preset-btn');
+        var inputEl = document.getElementById('tokenizer-input');
+        var outputEl = document.getElementById('tokenizer-output');
+        var runBtn = document.getElementById('tokenizer-btn');
+
+        presetBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                presetBtns.forEach(function(b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                inputEl.value = presets[btn.dataset.preset] || '';
+                outputEl.innerHTML = 'Click "Redact" to see the magic \u2728';
+                outputEl.classList.remove('has-result');
+            });
+        });
+
+        // Redact button
+        runBtn.addEventListener('click', function() {
+            var text = inputEl.value.trim();
+            if (!text) return;
+            runBtn.classList.add('running');
+            runBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> PROCESSING\u2026';
+            setTimeout(function() {
+                var result = redactText(text);
+                outputEl.innerHTML = result.html;
+                outputEl.classList.add('has-result');
+                runBtn.classList.remove('running');
+                runBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> REDACT';
+            }, 600);
+        });
+    })();
     </script>
 </body>
 </html>
